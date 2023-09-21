@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from 'axios'
-import { useState } from 'react'
+import { useState } from 'react';
 import './App.css';
 import movieTrailer from 'movie-trailer';
 import CloseIcon from '@mui/icons-material/Close';
