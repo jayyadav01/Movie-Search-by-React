@@ -37,8 +37,8 @@ function App() {
     }
 
     const opts = {
-      width : "640",
-      height : "400",
+      width : "300",
+      height : "250",
       playerVars : {
         autoplay : 1
       }
@@ -56,62 +56,75 @@ function App() {
         }
     }
     
-  return (
+    function close()
+    {
+      setShowModal(false)
+    
+    }
+    return (
     <>
-      {
-        (showModal) ? 
-          <div className='container'>
-
-            <div className='modal'>
-              <CloseIcon className='close' onClick={() => setShowModal(false)} />
-              <YouTube videoId={showModal} opts={opts} />
-            </div>
-
-          </div>
-          
-          :
-          ('')
-      }
-
-      <div className='head'>
-        <div className='logo'>
-          <img src='./brand.png' width={120}></img>
-        </div>
-        <div className='search'>
-          <input placeholder='Find movies, TV shows and movies' onChange={(e) => setmovieName(e.target.value)} />
-          <button onClick={search}>Search</button>
-        </div>
-      </div>
-
-      <div className='parent'>
-        <div className='detail'>
+      
+      <div className='parent-container'>
+        
         {
-              data.map((data,i) => {
-                return (
-                    <div className='box' key={i}>
-                      <div className='image'>
-                        
-                      {
-                          (data.poster_path) ? 
-                            <img id='movie' src={link+data.poster_path} width={200} height={238} alt='poster'></img>
-                          :
-                            <img src='../Dummy.jpeg' width={200} height={238} alt='poster'></img>
+          (showModal) ? 
+            <div className='modal-container'>
 
-                      }
+              <div className='modal'>
+                <CloseIcon className='close' onClick={close} />
+                <YouTube videoId={showModal} opts={opts} />
+              </div>
 
-                      </div>
-                      <a className='watch-trailer' href='' onClick={(e) => watchTrailer(e,data.title)}>Watch Trailer</a>
-                      <div className='des'>
-                        <h1>{trimTitle(data.title)}</h1>
-                        <p>{trimOverview(data.overview)}</p>
-                      </div>
-                    </div>
-                )
-            })
-          
+            </div>
+            
+            :
+            ('')
         }
+        <div className='head'>
+            <div className='logo'>
+              <img className='lg-img' src='./brand.png'></img>
+            </div>
+            <div className='search'>
+              <input placeholder='Find movies, TV shows and movies' onChange={(e) => setmovieName(e.target.value)} />
+              <button onClick={search}>Search</button>
+            </div>
+          </div>
+
+          <div className='parent'>
+            <div className='detail'>
+            {
+                  data.map((data,i) => {
+                    return (
+                        <div className='box' key={i}>
+                          <div className='image'>
+                            
+                          {
+                              (data.poster_path) ? 
+                                <img id='movie' src={link+data.poster_path} width={200} height={238} alt='poster'></img>
+                              :
+                                <img src='../Dummy.jpeg' width={200} height={238} alt='poster'></img>
+
+                          }
+
+                          </div>
+                          <a className='watch-trailer' href='' onClick={(e) => watchTrailer(e,data.title)}>Watch Trailer</a>
+                          <div className='des'>
+                            <h1>{trimTitle(data.title)}</h1>
+                            <p className='overview' >{trimOverview(data.overview)}</p>
+                          </div>
+                        </div>
+                    )
+                })
+              
+            }
+          </div>
+        </div>
+
+
       </div>
-    </div>
+
+     
+      
     </>
   )
 }
